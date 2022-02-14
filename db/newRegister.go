@@ -22,8 +22,8 @@ func NewRegister(u models.User) (string, bool, error) {
 		return "", false, err
 	}
 
-	ObjID, _ := result.InsertedID.(primitive.ObjectID)
-	return ObjID.String(), true, nil
+	ObjID := result.InsertedID.(primitive.ObjectID).String()
+	return ObjID, true, nil
 }
 
 

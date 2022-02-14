@@ -24,18 +24,18 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Password must be at least 6 characters long", 400)
 	}
 
-	_, encontrado, _ := db.UserExist(t.Email)
-	if encontrado == true {
+	_, found, _ := db.UserExist(t.Email)
+	if found == true {
 		http.Error(w, "There's already an user registered with that email", 400)
 		return
 	}
 
 	_, status, err := db.NewRegister(t)
 	if err != nil {
-		http.Error(w, "An error happened trying to create the user "+err.Error(), 400)
+		http.Error(w, "An error happened trying to create the user "+err.Error(), 500)
 	}
 	if status == false {
-		http.Error(w, "Error saving the user in db " + err.Error(), 400 )
+		http.Error(w, "Error saving the user in db " + err.Error(), 500 )
 	}
 
 	w.WriteHeader(http.StatusCreated)

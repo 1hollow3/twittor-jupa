@@ -20,9 +20,9 @@ func ReadTweets(ID string, page int64) ([]*models.ReturnTweet, bool) {
 
 	query := bson.M{"userID": ID}
 	options := options2.Find()
-	options.SetLimit(20)
 	options.SetSort(bson.D{{Key: "date", Value: -1}})
 	options.SetSkip((page - 1) * 20)
+	options.SetLimit(20)
 
 	pointer, err := col.Find(ctx, query, options)
 	if err != nil {
